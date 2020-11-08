@@ -1,0 +1,18 @@
+﻿@model IQueryable<Product>
+@{
+    ViewData["Title"] = "Phone Store";
+    Layout = "_Layout";
+    ViewBag.EditDelete = true;
+    ViewBag.Mode = "ShowAll";
+}
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success">@TempData["message"]</div>
+}
+@await Html.PartialAsync("FilteredProducts")
+
+@await Html.PartialAsync("ShowData")
+
+@await Html.PartialAsync("CurrentPageShowAll")
+
+

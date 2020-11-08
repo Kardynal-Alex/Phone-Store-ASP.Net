@@ -1,0 +1,54 @@
+﻿@model PhoneShop.Models.CartIndexViewModel
+@{
+    ViewBag.Title = "PhoneStore: Shopping Cart";
+}
+@using PhoneShop.Models
+<h2>Your Shopping Cart</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Count</th>
+            <th>Product</th>
+            <th>Brand</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Cart.Lines)
+        {
+            <tr>
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-left">@line.Product.Name</td>
+                <td class="text-left">@line.Product.Brand</td>
+                <td class="text-right">@line.Product.Price.ToString("f2")$</td>
+                <td class="text-right">
+                    @((line.Quantity * line.Product.Price).ToString("f2"))$
+                </td>
+                <td>
+                    <form asp-controller="Cart" asp-action="RemoveFromCart" >
+                        <input type="hidden" name="productId" value="@line.Product.Id" />
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.Cart.ComputeTotalValue().ToString("f2")$
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>
+    @if (Model.Cart.Lines.Count() != 0)
+    {
+        <a asp-action="ToOrder" asp-controller="Cart" asp-route-URL="@Context.Request.Path.ToString()@Context.Request.QueryString" class="btn btn-primary">ToOrder</a>
+    }
+</div>

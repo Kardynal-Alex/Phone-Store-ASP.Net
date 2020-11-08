@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Phone Store";
+    Layout = "_Layout";
+    ViewBag.Mode = "Index";
+}
+
+@await Html.PartialAsync("FilteredProducts")
+@await Html.PartialAsync("ShowData")
+@await Html.PartialAsync("Page")

@@ -1,0 +1,21 @@
+﻿<div class="row p-2">
+    <form method="get" class="form-inline">
+        <label class="m-1">Brand:</label>
+        <select class="form-control" name="brand"
+                asp-items="@new SelectList(Enum.GetNames(typeof(BrandName)))">
+            <option value="">Select All</option>
+        </select>
+        <label class="m-1">Min Price:</label>
+        <input class="form-control" name="minPrice" value="@ViewBag.minPrice" />
+        <label class="m-1">Max Price:</label>
+        <input class="form-control" name="maxPrice" value="@ViewBag.maxPrice" />
+        <input type="submit" value="Filter" class="btn btn-danger" />
+        <a asp-action="@ViewBag.Mode" class="btn btn-primary">Clear Filter</a>
+    </form>
+    @if (ViewBag.EditDelete == true)
+    {
+        <div class="text-center">
+            <a asp-action="Create" class="btn btn-primary">Create New Product</a>
+        </div>
+    }
+</div>
