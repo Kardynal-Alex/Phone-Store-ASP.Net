@@ -10,6 +10,7 @@ namespace PhoneShop.Models
         Apple,
         Google,
         Samsung,
-        Xiomi
+        Xiomi,
+        Huawei
     }
 }

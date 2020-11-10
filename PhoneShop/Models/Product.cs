@@ -16,5 +16,6 @@ namespace PhoneShop.Models
         [Required(ErrorMessage = "Enter Price")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Out of range")]
         public decimal Price { get; set; }
+        public byte[] Image { get; set; }
     }
 }

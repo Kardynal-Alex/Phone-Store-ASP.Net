@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using PhoneShop.Models;
-
+using Microsoft.AspNetCore.Http;
+using System.IO;
 namespace PhoneShop.Controllers
 {
     public class HomeController : Controller
@@ -19,13 +20,13 @@ namespace PhoneShop.Controllers
         {
             repository = repo;
         }
-        public IQueryable<Product> GetCurrentProducts(int page, string brand = null, decimal? minPrice = null, decimal? maxPrice = null)
+        const int pageSize = 10;
+        public async Task<IQueryable<Product>> GetCurrentProducts(int page, string brand = null, decimal? minPrice = null, decimal? maxPrice = null)
         {
-            int pageSize = 10;
             IQueryable<Product> source =repository.GetFilteredProduct(brand, minPrice, maxPrice);
-            var count = source.Count();
+            var count =source.Count();
             var productSelected = source.Skip((page - 1) * pageSize).Take(pageSize);
-
+            
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             IndexViewModel viewModel = new IndexViewModel
             {
@@ -39,22 +40,22 @@ namespace PhoneShop.Controllers
             return viewModel.Products;
         }
 
-        public IActionResult Index(int page=1, string brand = null, decimal? minPrice = null, decimal? maxPrice = null)
+        public async Task<IActionResult> Index(int page=1, string brand = null, decimal? minPrice = null, decimal? maxPrice = null)
         {
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
             ViewBag.Brand = brand;
             ViewBag.URL = HttpContext.Request.Path.ToString()+HttpContext.Request.QueryString;
-            return View(GetCurrentProducts(page,brand,minPrice,maxPrice));
+            return View(await GetCurrentProducts(page, brand, minPrice, maxPrice));
         }
 
-        public IActionResult ShowAll(int page=1, string brand = null, decimal? minPrice = null, decimal? maxPrice = null)
+        public async Task<IActionResult> ShowAll(int page=1, string brand = null, decimal? minPrice = null, decimal? maxPrice = null)
         {
             ViewBag.EditDelete = true;
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
             ViewBag.Brand = brand;
-            return View(GetCurrentProducts(page, brand, minPrice, maxPrice));
+            return View(await GetCurrentProducts(page, brand, minPrice, maxPrice));
         }
         public IActionResult Create()
         {
@@ -62,7 +63,7 @@ namespace PhoneShop.Controllers
             return View("Editor", new Product());
         }
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(Product product, IFormFile Image)
         {
             if (!ModelState.IsValid)
             {
@@ -70,7 +71,7 @@ namespace PhoneShop.Controllers
             }
             else
             {
-                repository.CreatProduct(product);
+                repository.CreatProduct(product, Image);
                 return RedirectToAction(nameof(ShowAll));
             }
         }
@@ -80,10 +81,10 @@ namespace PhoneShop.Controllers
             return View("Editor", repository.GetProduct(id));
         }
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(Product product, IFormFile Image)
         {
             TempData["message"] = string.Format("\"{0}\" was changed", product.Name);
-            repository.UpdateProduct(product);
+            repository.UpdateProduct(product, Image);
             return RedirectToAction(nameof(ShowAll));
         }
         [HttpPost]

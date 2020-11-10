@@ -9,6 +9,6 @@ namespace PhoneShop.Models
     {
         public EFDatabaseContext(DbContextOptions<EFDatabaseContext> opts) : base(opts) { }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Productss { get; set; }
     }
 }

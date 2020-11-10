@@ -6,5 +6,8 @@
 }
 
 @await Html.PartialAsync("FilteredProducts")
-@await Html.PartialAsync("ShowData")
-@await Html.PartialAsync("Page")
+@await Html.PartialAsync("ShowAsync")
+
+<div class="text-center">
+    @await Html.PartialAsync("Page")
+</div>

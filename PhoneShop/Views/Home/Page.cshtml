@@ -2,23 +2,79 @@
 @{
     PageViewModel page = new PageViewModel(ViewBag.CountProducts, ViewBag.Page, ViewBag.PageSize);
 }
-@if (page.HasNextPage == true)
+
+@if (page.HasPreviousPage == true)
 {
-    <a asp-action="Index"
-       asp-route-page="@(page.PageNumber + 1)"
+    <a asp-action="@ViewBag.Mode"
+       asp-route-page="1"
        asp-route-brand="@ViewBag.Brand"
        asp-route-minPrice="@ViewBag.minPrice"
        asp-route-maxPrice="@ViewBag.maxPrice"
-       class="btn btn-outline-dark">Вперед
+       class="btn btn-outline-dark">
+        To Begin
+        <i class="glyphicon glyphicon-chevron-left"></i>
     </a>
 }
 @if (page.HasPreviousPage == true)
 {
-    <a asp-action="Index"
+    <a asp-action="@ViewBag.Mode"
        asp-route-page="@(page.PageNumber - 1)"
        asp-route-brand="@ViewBag.Brand"
        asp-route-minPrice="@ViewBag.minPrice"
        asp-route-maxPrice="@ViewBag.maxPrice"
-       class="btn btn-outline-dark">Назад
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Back
     </a>
 }
+@if (page.HasNextPage == true)
+{
+    <a asp-action="@ViewBag.Mode"
+       asp-route-page="@(page.PageNumber + 1)"
+       asp-route-brand="@ViewBag.Brand"
+       asp-route-minPrice="@ViewBag.minPrice"
+       asp-route-maxPrice="@ViewBag.maxPrice"
+       class="btn btn-outline-dark">
+        Next
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+@if (page.HasNextPage == true)
+{
+    <a asp-action="@ViewBag.Mode"
+       asp-route-page="@(page.TotalPages)"
+       asp-route-brand="@ViewBag.Brand"
+       asp-route-minPrice="@ViewBag.minPrice"
+       asp-route-maxPrice="@ViewBag.maxPrice"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-right"></i>
+        To End
+    </a>
+}
+
+
+<style>
+    @@font-face {
+        font-family: 'FontAwesome';
+        src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff') format('woff'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal
+    }
+
+    .glyphicon {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
+    .glyphicon-chevron-right:before {
+        content: "\f054";
+    }
+
+    .glyphicon-chevron-left:before {
+        content: "\f053";
+    }
+</style>

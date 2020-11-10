@@ -2,10 +2,10 @@
 @{
     Layout = "_Layout";
 }
-<form asp-action="@(ViewBag.CreateMode==true ?"Create":"Edit")" method="post">
+<form asp-action="@(ViewBag.CreateMode==true ?"Create":"Edit")" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control"/>
+        <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name"></span>
     </div>
     <div class="form-group">
@@ -21,12 +21,16 @@
         <input asp-for="Price" class="form-control" />
         <span asp-validation-for="Price"></span>
     </div>
+    <div>
+        <label asp-for="Image">Image</label>
+        <input name="Image" type="file" class="form-control" />
+    </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Save</button>
         <a asp-action="ShowAll" class="btn btn-primary">Cancel</a>
     </div>
-
 </form>
+
 @section scripts
 {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

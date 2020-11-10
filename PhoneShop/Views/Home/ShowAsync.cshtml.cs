@@ -7,4 +7,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace PhoneShop.Views.Home
 {
+    public class ShowAsyncModel : PageModel
+    {
+        public void OnGet()
+        {
+        }
+    }
 }

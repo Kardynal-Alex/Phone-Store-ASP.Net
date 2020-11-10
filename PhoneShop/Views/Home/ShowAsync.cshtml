@@ -1,6 +1,4 @@
-﻿@model IQueryable<Product>
-@using PhoneShop.Models
-
+﻿@model IEnumerable<Product>
 <div class="col">
     @foreach (var p in Model)
     {
@@ -17,11 +15,11 @@
                 <h5>@p.Brand</h5>
                 <h6>@p.Price.ToString("F2") $</h6>
             </div>
-            <div class="col-2">
-                <form asp-action="Delete" method="post">
-                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@p.Id">Edit</a>
-                    <input type="hidden" name="id" value="@p.Id" />
-                    <button type="submit" class="btn btn-danger">Delete</button>
+            <div class="pull-right">
+                <form asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@p.Id">
+                    <input type="hidden" name="productId" value="@p.Id" />
+                    <input type="hidden" name="returnUrl" value="@ViewBag.URL" />
+                    <button type="submit" class="btn btn-success">Add to Cart</button>
                 </form>
             </div>
         </div>

@@ -10,9 +10,9 @@
     <div class="alert alert-success">@TempData["message"]</div>
 }
 @await Html.PartialAsync("FilteredProducts")
-
 @await Html.PartialAsync("ShowData")
-
-@await Html.PartialAsync("CurrentPageShowAll")
+<div class="text-center">
+    @await Html.PartialAsync("Page")
+</div>
 
 
