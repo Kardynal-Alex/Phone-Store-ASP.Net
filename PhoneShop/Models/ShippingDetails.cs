@@ -21,5 +21,5 @@ namespace PhoneShop.Models
         public string City { get; set; }
         [Required(ErrorMessage = "Enter your Address")]
         public string Address{ get; set; }
-}
+    }
 }

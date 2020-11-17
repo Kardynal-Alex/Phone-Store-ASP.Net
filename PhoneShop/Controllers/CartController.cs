@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore;
 using PhoneShop.Models;
-using System.Net;
-using System.Net.Mail;
+
 namespace PhoneShop.Controllers
 {
     public class CartController : Controller
     {
         private IDataRepository repository;
         public static Cart cart=new Cart();
-        
+
         public CartController(IDataRepository repo)
         {
             repository = repo;

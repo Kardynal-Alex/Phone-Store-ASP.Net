@@ -1,0 +1,19 @@
+﻿@model PhoneShop.Models.LoginModel
+
+<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+    <div>
+        <div class="form-group">
+            <label asp-for="Email">Enter Email</label>
+            <input type="text" asp-for="Email" class="form-control"/>
+            <span asp-validation-for="Email" ></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password">Enter Password</label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" ></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Enter" class="btn btn-outline-dark" />
+        </div>
+    </div>
+</form>

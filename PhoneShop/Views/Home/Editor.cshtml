@@ -2,7 +2,11 @@
 @{
     Layout = "_Layout";
 }
-<form asp-action="@(ViewBag.CreateMode==true ?"Create":"Edit")" method="post" enctype="multipart/form-data">
+
+<form asp-action="@(ViewBag.CreateMode==true ?"Create":"Edit")" method="post" enctype="multipart/form-data"
+      asp-route-minPrice="@ViewBag.minPrice"
+      asp-route-maxPrice="@ViewBag.maxPrice"
+      asp-route-Page="@ViewBag.Page">
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
@@ -27,9 +31,21 @@
     </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Save</button>
-        <a asp-action="ShowAll" class="btn btn-primary">Cancel</a>
+        <a asp-action="ShowAll" class="btn btn-primary"
+           asp-route-minPrice="@ViewBag.minPrice"
+           asp-route-maxPrice="@ViewBag.maxPrice"
+           asp-route-Page="@ViewBag.Page">Cancel
+        </a>
     </div>
 </form>
+
+@if (Model.Image != null)
+{
+    <div class="pull-left" style="margin-right: 10px">
+        <img class="img-thumbnail" width="120" height="100"
+             src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+    </div>
+}
 
 @section scripts
 {

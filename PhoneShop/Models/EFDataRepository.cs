@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using PhoneShop.Models;
 namespace PhoneShop.Models
 {
     public class EFDataRepository:IDataRepository
@@ -28,16 +24,10 @@ namespace PhoneShop.Models
             newProduct.Id = 0;
             if (Image != null)
             {
-                if (Image.Length > 0)
+                using (var ms = new MemoryStream())
                 {
-                    byte[] p1 = null;
-                    using (var fs1 = Image.OpenReadStream())
-                    using (var ms1 = new MemoryStream())
-                    {
-                        fs1.CopyTo(ms1);
-                        p1 = ms1.ToArray();
-                    }
-                    newProduct.Image = p1;
+                    Image.CopyTo(ms);
+                    newProduct.Image = ms.ToArray();
                 }
             }
             context.Productss.Add(newProduct);
@@ -51,16 +41,10 @@ namespace PhoneShop.Models
             p.Price = updateProduct.Price;
             if (Image != null)
             {
-                if (Image.Length > 0)
+                using (var ms = new MemoryStream())
                 {
-                    byte[] p1 = null;
-                    using (var fs1 = Image.OpenReadStream())
-                    using (var ms1 = new MemoryStream())
-                    {
-                        fs1.CopyTo(ms1);
-                        p1 = ms1.ToArray();
-                    }
-                    p.Image = p1;
+                    Image.CopyTo(ms);
+                    p.Image = ms.ToArray();
                 }
             }
             context.SaveChanges();

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using PhoneShop.Models;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Http;
+
 namespace PhoneShop.Models
 {
     public interface IDataRepository
