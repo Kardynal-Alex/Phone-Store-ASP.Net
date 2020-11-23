@@ -6,7 +6,7 @@ namespace PhoneShop.Models
     {
         [Required(ErrorMessage = "Enter Email")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Enter пароль")]
+        [Required(ErrorMessage = "Enter password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

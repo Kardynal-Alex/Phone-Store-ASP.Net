@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PhoneShop.Models;
 
@@ -46,10 +46,12 @@ namespace PhoneShop.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult ToOrder(ShippingDetails shippingDetails)
+        public async Task<IActionResult> ToOrder(ShippingDetails shippingDetails)
         {
-            cart.Clear();
             ViewBag.Name = shippingDetails.Name;
+            EmailService emailService = new EmailService();
+            await emailService.SendEmailAsync(shippingDetails, cart);
+            cart.Clear();
             return View("Thanks");
         }
     }
