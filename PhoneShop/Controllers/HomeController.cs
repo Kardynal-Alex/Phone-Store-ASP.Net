@@ -6,6 +6,7 @@ using PhoneShop.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using PhoneShop.Models.DataModel;
+using PhoneShop.Models.Pagination;
 namespace PhoneShop.Controllers
 {   
     public class HomeController : Controller

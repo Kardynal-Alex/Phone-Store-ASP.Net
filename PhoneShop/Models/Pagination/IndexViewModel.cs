@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using PhoneShop.Models.DataModel;
-namespace PhoneShop.Models
+namespace PhoneShop.Models.Pagination
 {
     public class IndexViewModel
     {

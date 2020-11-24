@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PhoneShop.Models
+namespace PhoneShop.Models.Pagination
 {
     public class PageViewModel
     {
