@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using PhoneShop.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
-
+using PhoneShop.Models.DataModel;
 namespace PhoneShop.Controllers
 {   
     public class HomeController : Controller

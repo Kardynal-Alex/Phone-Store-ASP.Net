@@ -1,4 +1,4 @@
-﻿@model PhoneShop.Models.Product
+﻿@model PhoneShop.Models.DataModel.Product
 @{
     Layout = "_Layout";
 }
@@ -15,7 +15,7 @@
     <div class="form-group">
         <label asp-for="Brand"></label>
         <select class="form-control" asp-for="Brand"
-                asp-items="@new SelectList(Enum.GetNames(typeof(BrandName)))">
+                asp-items="@new SelectList(Enum.GetNames(typeof(PhoneShop.Models.DataModel.BrandName)))">
             <option disabled selected value="">Select Brand</option>
         </select>
         <span asp-validation-for="Brand"></span>

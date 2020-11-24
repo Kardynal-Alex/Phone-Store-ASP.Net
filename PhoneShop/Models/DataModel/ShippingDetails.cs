@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PhoneShop.Models
+namespace PhoneShop.Models.DataModel
 {
     public class ShippingDetails
     {
@@ -20,6 +20,6 @@ namespace PhoneShop.Models
         [Required(ErrorMessage = "Enter your City")]
         public string City { get; set; }
         [Required(ErrorMessage = "Enter your Address")]
-        public string Address{ get; set; }
+        public string Address { get; set; }
     }
 }

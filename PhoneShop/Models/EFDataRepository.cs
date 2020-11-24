@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using PhoneShop.Models.DataModel;
 namespace PhoneShop.Models
 {
     public class EFDataRepository:IDataRepository
@@ -13,11 +14,11 @@ namespace PhoneShop.Models
 
         public Product GetProduct(int id)
         {
-            return context.Productss.Find(id);
+            return context.Products.Find(id);
         }
         public IQueryable<Product> GetAllProducts()
         {
-            return context.Productss;
+            return context.Products;
         }
         public void CreatProduct(Product newProduct, IFormFile Image)
         {
@@ -30,12 +31,12 @@ namespace PhoneShop.Models
                     newProduct.Image = ms.ToArray();
                 }
             }
-            context.Productss.Add(newProduct);
+            context.Products.Add(newProduct);
             context.SaveChanges();
         }
         public void UpdateProduct(Product updateProduct,IFormFile Image)
         {
-            Product p =context.Productss.Find(updateProduct.Id);
+            Product p =context.Products.Find(updateProduct.Id);
             p.Name = updateProduct.Name;
             p.Brand = updateProduct.Brand;
             p.Price = updateProduct.Price;
@@ -51,12 +52,12 @@ namespace PhoneShop.Models
         }
         public void DeleteProduct(int id)
         {
-            context.Productss.Remove(new Product { Id = id });
+            context.Products.Remove(new Product { Id = id });
             context.SaveChanges();
         }
         public IQueryable<Product> GetFilteredProduct(string brand = null, decimal? minPrice = null, decimal? maxPrice = null)
         {
-            IQueryable<Product> products = context.Productss;
+            IQueryable<Product> products = context.Products;
             if(brand!=null)
             {
                 products = products.Where(p => p.Brand == brand);

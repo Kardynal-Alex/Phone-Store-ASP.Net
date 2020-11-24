@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Http;
-
+using PhoneShop.Models.DataModel;
 namespace PhoneShop.Models
 {
     public interface IDataRepository

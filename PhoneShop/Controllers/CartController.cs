@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PhoneShop.Models;
-
+using PhoneShop.Models.DataModel;
 namespace PhoneShop.Controllers
 {
     public class CartController : Controller

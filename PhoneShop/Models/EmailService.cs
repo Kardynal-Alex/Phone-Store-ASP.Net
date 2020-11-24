@@ -2,7 +2,7 @@
 using System.Net.Mail;
 using System.Net;
 using System.Text;
-
+using PhoneShop.Models.DataModel;
 namespace PhoneShop.Models
 {
     public class EmailService

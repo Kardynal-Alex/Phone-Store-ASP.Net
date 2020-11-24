@@ -8,7 +8,7 @@ using PhoneShop.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-
+using PhoneShop.Models.DataModel;
 namespace PhoneShop.Controllers
 {
     public class AccountController : Controller

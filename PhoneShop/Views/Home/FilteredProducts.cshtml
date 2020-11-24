@@ -2,7 +2,7 @@
     <form method="get" class="form-inline">
         <label class="m-1">Brand:</label>
         <select class="form-control" name="brand"
-                asp-items="@new SelectList(Enum.GetNames(typeof(BrandName)))">
+                asp-items="@new SelectList(Enum.GetNames(typeof(PhoneShop.Models.DataModel.BrandName)))">
             <option value="">Select All</option>
         </select>
         <label class="m-1">Min Price:</label>

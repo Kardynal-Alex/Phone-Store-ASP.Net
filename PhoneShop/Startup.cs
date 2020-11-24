@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using PhoneShop.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
-
+using PhoneShop.Models.DataModel;
 namespace PhoneShop
 {
     public class Startup
