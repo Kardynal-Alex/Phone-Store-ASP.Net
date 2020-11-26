@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PhoneShop.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Old : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,8 +29,7 @@ namespace PhoneShop.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactId = table.Column<int>(type: "int", nullable: false),
-                    ContactDetailId = table.Column<int>(type: "int", nullable: true)
+                    ContactDetailId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,7 +39,7 @@ namespace PhoneShop.Migrations
                         column: x => x.ContactDetailId,
                         principalTable: "ContactDetails",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

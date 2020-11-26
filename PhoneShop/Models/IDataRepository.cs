@@ -5,8 +5,10 @@ namespace PhoneShop.Models
 {
     public interface IDataRepository
     {
-        Product GetProduct(int id);
+        Product GetProductById(int id);
         IQueryable<Product> GetAllProducts();
+        IQueryable<Supplier> GetAllSuppliers();
+        IQueryable<ContactDetail> GetAllContactDetails();
         void CreatProduct(Product newProduct, IFormFile Image);
         void UpdateProduct(Product updateProduct, IFormFile Image);
         void DeleteProduct(int id);

@@ -10,8 +10,8 @@ using PhoneShop.Models.DataModel;
 namespace PhoneShop.Migrations
 {
     [DbContext(typeof(EFDatabaseContext))]
-    [Migration("20201126124420_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201126161733_Old")]
+    partial class Old
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,10 +77,7 @@ namespace PhoneShop.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ContactDetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ContactId")
+                    b.Property<int>("ContactDetailId")
                         .HasColumnType("int");
 
                     b.Property<string>("Country")
@@ -111,7 +108,9 @@ namespace PhoneShop.Migrations
                 {
                     b.HasOne("PhoneShop.Models.DataModel.ContactDetail", "ContactDetail")
                         .WithMany()
-                        .HasForeignKey("ContactDetailId");
+                        .HasForeignKey("ContactDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ContactDetail");
                 });

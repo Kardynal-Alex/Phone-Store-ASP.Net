@@ -1,0 +1,21 @@
+﻿@model PhoneShop.Models.DataModel.SupplierViewModel;
+
+@{
+    Layout = "_Layout";
+}
+
+
+<h2>Suppliers Information</h2>
+<table class="table">
+    <tbody>
+        @for (int i = 0; i < Model.Suppliers.Count(); i++)
+        {
+            <tr>
+                <td class="text-left">@Model.Suppliers[@i].Name</td>
+                <td class="text-left">@Model.Suppliers[@i].Country</td>
+                <td class="text-left">@Model.ContactDetails[@i].Name</td>
+                <td class="text-left">@Model.ContactDetails[@i].Phone</td>
+            </tr>
+            }
+    </tbody>
+</table>

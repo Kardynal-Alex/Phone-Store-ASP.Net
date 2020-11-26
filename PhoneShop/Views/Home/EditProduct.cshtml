@@ -3,7 +3,7 @@
     Layout = "_Layout";
 }
 
-<form asp-action="@(ViewBag.CreateMode==true ?"Create":"Edit")" method="post" enctype="multipart/form-data"
+<form asp-action="Edit" asp-controller="Home" method="post" enctype="multipart/form-data"
       asp-route-minPrice="@ViewBag.minPrice"
       asp-route-maxPrice="@ViewBag.maxPrice"
       asp-route-Page="@ViewBag.Page">
@@ -34,7 +34,8 @@
         <a asp-action="ShowAll" class="btn btn-primary"
            asp-route-minPrice="@ViewBag.minPrice"
            asp-route-maxPrice="@ViewBag.maxPrice"
-           asp-route-Page="@ViewBag.Page">Cancel
+           asp-route-Page="@ViewBag.Page">
+            Cancel
         </a>
     </div>
 </form>

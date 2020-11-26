@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using PhoneShop.Models.DataModel;
 namespace PhoneShop.Models
@@ -12,7 +13,7 @@ namespace PhoneShop.Models
         }
         private EFDatabaseContext context;
 
-        public Product GetProduct(int id)
+        public Product GetProductById(int id)
         {
             return context.Products.Find(id);
         }
@@ -93,5 +94,14 @@ namespace PhoneShop.Models
             }
             return products;
         }
+        public IQueryable<Supplier> GetAllSuppliers()
+        {
+            return context.Suppliers; 
+        }
+        public IQueryable<ContactDetail> GetAllContactDetails()
+        {
+            return context.ContactDetails;
+        }
+
     }
 }

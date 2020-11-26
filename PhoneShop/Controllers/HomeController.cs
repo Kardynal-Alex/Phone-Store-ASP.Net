@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using PhoneShop.Models.DataModel;
 using PhoneShop.Models.Pagination;
+using System.Collections.Generic;
+
 namespace PhoneShop.Controllers
 {   
     public class HomeController : Controller
@@ -57,10 +59,17 @@ namespace PhoneShop.Controllers
             }
             return Content("не аутентифицирован");
         }
-
+        public IActionResult SuppliersList()
+        {
+            SupplierViewModel supplierViewModel = new SupplierViewModel
+            {
+                Suppliers = repository.GetAllSuppliers().ToList(),
+                ContactDetails = repository.GetAllContactDetails().ToList()
+            };
+            return View(supplierViewModel);
+        }
         public IActionResult Create(int Page, double? minPrice = null, double? maxPrice = null)
         {
-            //ViewBag.CreateMode = true;
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
             ViewBag.Page = Page;
@@ -82,11 +91,10 @@ namespace PhoneShop.Controllers
         
         public IActionResult Edit(int id, int Page, double? minPrice = null, double? maxPrice = null)
         {
-            ViewBag.CreateMode = false;
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
             ViewBag.Page = Page;
-            return View("Editor", repository.GetProduct(id));
+            return View("EditProduct", repository.GetProductById(id));
         }
         [HttpPost]
         public IActionResult Edit(Product product, IFormFile Image, int Page, double? minPrice = null, double? maxPrice = null)

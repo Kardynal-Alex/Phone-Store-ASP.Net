@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace PhoneShop.Views.Home
 {
-    public class EditorModel : PageModel
+    public class EditProductModel : PageModel
     {
         public void OnGet()
         {

@@ -16,6 +16,7 @@
                 <h3>@p.Name</h3>
                 <h5>@p.Brand</h5>
                 <h6>@p.Price.ToString("F2") $</h6>
+                <h6>@p.Supplier?.Name</h6>
             </div>
             <div class="col-2">
                 <form asp-action="Delete" method="post" 
