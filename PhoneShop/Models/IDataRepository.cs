@@ -10,6 +10,6 @@ namespace PhoneShop.Models
         void CreatProduct(Product newProduct, IFormFile Image);
         void UpdateProduct(Product updateProduct, IFormFile Image);
         void DeleteProduct(int id);
-        IQueryable<Product> GetFilteredProduct(string brand = null, decimal? minPrice=null, decimal? maxPrice=null);
+        IQueryable<Product> GetFilteredProduct(string brand = null, double? minPrice=null, double? maxPrice=null);
     }
 }

@@ -12,7 +12,10 @@ namespace PhoneShop.Models.DataModel
         public string Brand { get; set; }
         [Required(ErrorMessage = "Enter Price")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Out of range")]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public byte[] Image { get; set; }
+
+        public int SupplierId { get; set; }
+        public Supplier Supplier { get; set; }
     }
 }

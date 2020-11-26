@@ -22,16 +22,37 @@ namespace PhoneShop.Models
         }
         public void CreatProduct(Product newProduct, IFormFile Image)
         {
-            newProduct.Id = 0;
-            if (Image != null)
+            var existingSupplier = context.Suppliers.FirstOrDefault(x => x.Name == newProduct.Supplier.Name && x.ContactDetail.Name == newProduct.Supplier.ContactDetail.Name);
+            if (existingSupplier != null)
             {
-                using (var ms = new MemoryStream())
+                Product product = new Product();
+                product.Name = newProduct.Name;
+                product.Brand = newProduct.Brand;
+                product.Price = newProduct.Price;
+                if (Image != null)
                 {
-                    Image.CopyTo(ms);
-                    newProduct.Image = ms.ToArray();
+                    using (var ms = new MemoryStream())
+                    {
+                        Image.CopyTo(ms);
+                        newProduct.Image = ms.ToArray();
+                    }
                 }
+                product.Image = newProduct.Image;
+                product.SupplierId = existingSupplier.Id;
+                context.Products.Add(product);
             }
-            context.Products.Add(newProduct);
+            else
+            {
+                if (Image != null)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        Image.CopyTo(ms);
+                        newProduct.Image = ms.ToArray();
+                    }
+                }
+                context.Products.Add(newProduct);
+            }
             context.SaveChanges();
         }
         public void UpdateProduct(Product updateProduct,IFormFile Image)
@@ -55,7 +76,7 @@ namespace PhoneShop.Models
             context.Products.Remove(new Product { Id = id });
             context.SaveChanges();
         }
-        public IQueryable<Product> GetFilteredProduct(string brand = null, decimal? minPrice = null, decimal? maxPrice = null)
+        public IQueryable<Product> GetFilteredProduct(string brand = null, double? minPrice = null, double? maxPrice = null)
         {
             IQueryable<Product> products = context.Products;
             if(brand!=null)

@@ -29,7 +29,7 @@ namespace PhoneShop.Models
             lineCollection.RemoveAll(x => x.Product.Id == product.Id);
         }
 
-        public decimal ComputeTotalValue()
+        public double ComputeTotalValue()
         {
             return lineCollection.Sum(x => x.Product.Price * x.Quantity);
 
