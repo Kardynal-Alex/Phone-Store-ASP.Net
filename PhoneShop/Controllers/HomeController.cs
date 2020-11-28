@@ -109,7 +109,19 @@ namespace PhoneShop.Controllers
             repository.DeleteProduct(id);
             return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", page = Page, minPrice = minPrice, maxPrice = maxPrice });
         }
-
+        public IActionResult EditSupplier(int id)
+        {
+            var supplier = repository.GetSupplierById(id);
+            var contact = repository.GetContactDetailById(supplier.ContactDetailId);
+            ViewBag.ContactDetailId = supplier.ContactDetailId;
+            return View(supplier);
+        }
+        [HttpPost]
+        public IActionResult EditSupplier(Supplier supplier,int contactId)
+        {
+            repository.UpdateSupplier(supplier, contactId);
+            return RedirectToAction(nameof(SuppliersList));
+        }
         public IActionResult Privacy()
         {
             return View();

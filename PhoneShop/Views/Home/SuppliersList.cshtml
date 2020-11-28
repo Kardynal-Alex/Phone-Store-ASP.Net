@@ -13,6 +13,11 @@
                 <td class="text-left">@Model.Suppliers[@i].Country</td>
                 <td class="text-left">@Model.ContactDetails[@i].Name</td>
                 <td class="text-left">@Model.ContactDetails[@i].Phone</td>
+                <td>
+                    <a asp-action="EditSupplier" asp-controller="Home" class="btn btn-warning" 
+                       asp-route-Id="@Model.Suppliers[@i].Id">Edit
+                    </a>
+                </td>
             </tr>
             }
     </tbody>

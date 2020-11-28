@@ -1,0 +1,43 @@
+﻿@model PhoneShop.Models.DataModel.Supplier
+
+<form asp-action="EditSupplier" asp-controller="Home" method="post" 
+    asp-route-contactId="@ViewBag.ContactDetailId">
+    <div class="row p-2">
+        <div class="col p-2">
+            <h2>Supplier</h2>
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country"></span>
+            </div>
+
+            <h2>Contact Detail</h2>
+            <div class="form-group">
+                <label asp-for="ContactDetail.Name"></label>
+                <input asp-for="ContactDetail.Name" class="form-control" />
+                <span asp-validation-for="ContactDetail.Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactDetail.Phone"></label>
+                <input asp-for="ContactDetail.Phone" class="form-control" />
+                <span asp-validation-for="ContactDetail.Phone"></span>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Update</button>
+        <a asp-action="SuppliersList" class="btn btn-primary">Cancel</a>
+    </div>
+</form>
+
+
+@section scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

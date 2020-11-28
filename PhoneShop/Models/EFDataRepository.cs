@@ -13,14 +13,8 @@ namespace PhoneShop.Models
         }
         private EFDatabaseContext context;
 
-        public Product GetProductById(int id)
-        {
-            return context.Products.Find(id);
-        }
-        public IQueryable<Product> GetAllProducts()
-        {
-            return context.Products;
-        }
+        public Product GetProductById(int id) => context.Products.Find(id);
+        public IQueryable<Product> GetAllProducts() => context.Products;
         public void CreatProduct(Product newProduct, IFormFile Image)
         {
             var existingSupplier = context.Suppliers.FirstOrDefault(x => x.Name == newProduct.Supplier.Name && x.ContactDetail.Name == newProduct.Supplier.ContactDetail.Name);
@@ -94,14 +88,21 @@ namespace PhoneShop.Models
             }
             return products;
         }
-        public IQueryable<Supplier> GetAllSuppliers()
+        public IQueryable<Supplier> GetAllSuppliers() => context.Suppliers;
+        public IQueryable<ContactDetail> GetAllContactDetails() => context.ContactDetails;
+        public Supplier GetSupplierById(int id) => context.Suppliers.Find(id);
+        public ContactDetail GetContactDetailById(int id) => context.ContactDetails.Find(id);
+        public void UpdateSupplier(Supplier supplier, int contactDetailId)
         {
-            return context.Suppliers; 
+            Supplier s = context.Suppliers.Find(supplier.Id);
+            s.Name = supplier.Name;
+            s.Country = supplier.Country;
+            ContactDetail c = context.ContactDetails.Find(contactDetailId);
+            c.Name = supplier.ContactDetail.Name;
+            c.Phone = supplier.ContactDetail.Phone;
+            context.Suppliers.Update(s);
+            context.ContactDetails.Update(c);
+            context.SaveChanges();
         }
-        public IQueryable<ContactDetail> GetAllContactDetails()
-        {
-            return context.ContactDetails;
-        }
-
     }
 }
