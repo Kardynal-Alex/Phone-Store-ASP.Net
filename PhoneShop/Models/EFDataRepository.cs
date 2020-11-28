@@ -50,7 +50,7 @@ namespace PhoneShop.Models
             }
             context.SaveChanges();
         }
-        public void UpdateProduct(Product updateProduct,IFormFile Image)
+        public void UpdateProduct(Product updateProduct, IFormFile Image, int SupplierId)
         {
             Product p =context.Products.Find(updateProduct.Id);
             p.Name = updateProduct.Name;
@@ -64,6 +64,16 @@ namespace PhoneShop.Models
                     p.Image = ms.ToArray();
                 }
             }
+            Supplier s = context.Suppliers.Find(SupplierId);
+            s.Name = updateProduct.Supplier.Name;
+            s.Country = updateProduct.Supplier.Country;
+            ContactDetail c = context.ContactDetails.Find(s.ContactDetailId);
+            c.Name = updateProduct.Supplier.ContactDetail.Name;
+            c.Phone = updateProduct.Supplier.ContactDetail.Phone;
+            
+            context.Products.Update(p);
+            context.Suppliers.Update(s);
+            context.ContactDetails.Update(c);
             context.SaveChanges();
         }
         public void DeleteProduct(int id)

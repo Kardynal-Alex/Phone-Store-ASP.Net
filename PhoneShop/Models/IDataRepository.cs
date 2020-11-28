@@ -12,7 +12,7 @@ namespace PhoneShop.Models
         IQueryable<Supplier> GetAllSuppliers();
         IQueryable<ContactDetail> GetAllContactDetails();
         void CreatProduct(Product newProduct, IFormFile Image);
-        void UpdateProduct(Product updateProduct, IFormFile Image);
+        void UpdateProduct(Product updateProduct, IFormFile Image, int SupplierId);
         void DeleteProduct(int id);
         IQueryable<Product> GetFilteredProduct(string brand = null, double? minPrice=null, double? maxPrice=null);
         void UpdateSupplier(Supplier supplier, int contactDetailId);

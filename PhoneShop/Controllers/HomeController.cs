@@ -44,7 +44,6 @@ namespace PhoneShop.Controllers
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
             ViewBag.Brand = brand;
-            ViewBag.URL = HttpContext.Request.Path.ToString() + HttpContext.Request.QueryString;
             return View(await GetCurrentProducts(page, brand, minPrice, maxPrice));
         }
         
@@ -88,19 +87,22 @@ namespace PhoneShop.Controllers
                 return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", page = Page, minPrice = minPrice, maxPrice = maxPrice });
             }
         }
-        
         public IActionResult Edit(int id, int Page, double? minPrice = null, double? maxPrice = null)
         {
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
             ViewBag.Page = Page;
+            var product = repository.GetProductById(id);
+            var suppliers = repository.GetSupplierById(product.SupplierId);
+            var contact = repository.GetContactDetailById(suppliers.ContactDetailId);
+            ViewBag.SupplierId = suppliers.Id;
             return View("EditProduct", repository.GetProductById(id));
         }
         [HttpPost]
-        public IActionResult Edit(Product product, IFormFile Image, int Page, double? minPrice = null, double? maxPrice = null)
+        public IActionResult Edit(Product product, IFormFile Image, int SupplierId, int Page, double? minPrice = null, double? maxPrice = null)
         {
             TempData["message"] = string.Format("\"{0}\" was changed", product.Name);
-            repository.UpdateProduct(product, Image);
+            repository.UpdateProduct(product, Image, SupplierId);
             return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", page = Page, minPrice = minPrice, maxPrice = maxPrice });
         }
         [HttpPost]

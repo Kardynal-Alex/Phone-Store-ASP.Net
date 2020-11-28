@@ -4,49 +4,79 @@
 }
 
 <form asp-action="Edit" asp-controller="Home" method="post" enctype="multipart/form-data"
+      asp-route-SupplierId="@ViewBag.SupplierId"
       asp-route-minPrice="@ViewBag.minPrice"
       asp-route-maxPrice="@ViewBag.maxPrice"
       asp-route-Page="@ViewBag.Page">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name"></span>
+    <div class="row p-2">
+        <div class="col p-2">
+            <h2>Product</h2>
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brand"></label>
+                <select class="form-control" asp-for="Brand"
+                        asp-items="@new SelectList(Enum.GetNames(typeof(PhoneShop.Models.DataModel.BrandName)))">
+                    <option disabled selected value="">Select Brand</option>
+                </select>
+                <span asp-validation-for="Brand"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price"></span>
+            </div>
+            <div>
+                <label asp-for="Image">Image</label>
+                <input name="Image" type="file" class="form-control" />
+            </div>
+            @if (Model.Image != null)
+            {
+                <div class="pull-left" style="margin-right: 10px">
+                    <img class="img-thumbnail" width="120" height="100"
+                         src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+                </div>
+            }
+        </div>
+        <div class="col p-2">
+            <h2>Supplier</h2>
+            <div class="form-group">
+                <label asp-for="Supplier.Name"></label>
+                <input asp-for="Supplier.Name" class="form-control" />
+                <span asp-validation-for="Supplier.Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Supplier.Country"></label>
+                <input asp-for="Supplier.Country" class="form-control" />
+                <span asp-validation-for="Supplier.Country"></span>
+            </div>
+            <h2>Contact Detail</h2>
+            <div class="form-group">
+                <label asp-for="Supplier.ContactDetail.Name"></label>
+                <input asp-for="Supplier.ContactDetail.Name" class="form-control" />
+                <span asp-validation-for="Supplier.ContactDetail.Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Supplier.ContactDetail.Phone"></label>
+                <input asp-for="Supplier.ContactDetail.Phone" class="form-control" />
+                <span asp-validation-for="Supplier.ContactDetail.Phone"></span>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Brand"></label>
-        <select class="form-control" asp-for="Brand"
-                asp-items="@new SelectList(Enum.GetNames(typeof(PhoneShop.Models.DataModel.BrandName)))">
-            <option disabled selected value="">Select Brand</option>
-        </select>
-        <span asp-validation-for="Brand"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price"></span>
-    </div>
-    <div>
-        <label asp-for="Image">Image</label>
-        <input name="Image" type="file" class="form-control" />
-    </div>
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit">Save</button>
-        <a asp-action="ShowAll" class="btn btn-primary"
-           asp-route-minPrice="@ViewBag.minPrice"
-           asp-route-maxPrice="@ViewBag.maxPrice"
-           asp-route-Page="@ViewBag.Page">
-            Cancel
-        </a>
-    </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Save</button>
+            <a asp-action="ShowAll" class="btn btn-primary"
+               asp-route-minPrice="@ViewBag.minPrice"
+               asp-route-maxPrice="@ViewBag.maxPrice"
+               asp-route-Page="@ViewBag.Page">
+                Cancel
+            </a>
+        </div>
 </form>
 
-@if (Model.Image != null)
-{
-    <div class="pull-left" style="margin-right: 10px">
-        <img class="img-thumbnail" width="120" height="100"
-             src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
-    </div>
-}
 
 @section scripts
 {
