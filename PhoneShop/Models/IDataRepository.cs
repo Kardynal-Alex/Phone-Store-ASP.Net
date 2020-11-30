@@ -16,5 +16,10 @@ namespace PhoneShop.Models
         void DeleteProduct(int id);
         IQueryable<Product> GetFilteredProduct(string brand = null, double? minPrice=null, double? maxPrice=null);
         void UpdateSupplier(Supplier supplier, int contactDetailId);
+        void CreatePromoCode(PromoCodeSystem promoCodeSystem);
+        IQueryable<PromoCodeSystem> GetAllPromoCode();
+        PromoCodeSystem GetPromoCodeById(int id);
+        string GetPromoCodeByDate();
+        void UpdatePromoCode(int id, PromoCodeSystem promoCodeSystem);
     }
 }

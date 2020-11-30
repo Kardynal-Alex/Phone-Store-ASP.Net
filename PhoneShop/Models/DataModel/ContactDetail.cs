@@ -8,7 +8,8 @@ namespace PhoneShop.Models.DataModel
         [Display(Name = "Supplier Name")]
         [Required(ErrorMessage = "Enter Name Supplier")]
         public string Name { get; set; }
+        [MaxLength(10)]
         [Required(ErrorMessage = "Enter Phone Supplier")]
-        public int Phone { get; set; }
+        public string Phone { get; set; }
     }
 }

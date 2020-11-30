@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using PhoneShop.Models.DataModel;
+using System;
 namespace PhoneShop.Models
 {
     public class EFDataRepository:IDataRepository
@@ -114,5 +115,27 @@ namespace PhoneShop.Models
             context.ContactDetails.Update(c);
             context.SaveChanges();
         }
+        public void CreatePromoCode(PromoCodeSystem promoCodeSystem)
+        {
+            context.PromoCodeSystems.Add(promoCodeSystem);
+            context.SaveChanges();
+        }
+        public IQueryable<PromoCodeSystem> GetAllPromoCode() => context.PromoCodeSystems;
+        public PromoCodeSystem GetPromoCodeById(int id) => context.PromoCodeSystems.Find(id);
+        public void UpdatePromoCode(int id, PromoCodeSystem promoCodeSystem)
+        {
+            PromoCodeSystem p = context.PromoCodeSystems.Find(id);
+            p.PromoCode = promoCodeSystem.PromoCode;
+            p.Date1 = promoCodeSystem.Date1;
+            p.Date2 = promoCodeSystem.Date2;
+            p.DiscountPercentage = promoCodeSystem.DiscountPercentage;
+            context.PromoCodeSystems.Update(p);
+            context.SaveChanges();
+        }
+        public string GetPromoCodeByDate()
+        {
+            return context.PromoCodeSystems.Where(x => DateTime.Now.Date >= x.Date1 && DateTime.Now.Date <= x.Date2).Select(x => x.PromoCode).FirstOrDefault();
+        } 
+            
     }
 }

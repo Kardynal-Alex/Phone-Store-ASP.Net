@@ -10,8 +10,8 @@ using PhoneShop.Models.DataModel;
 namespace PhoneShop.Migrations
 {
     [DbContext(typeof(EFDatabaseContext))]
-    [Migration("20201126161733_Old")]
-    partial class Old
+    [Migration("20201128165205_StringReplaceInt")]
+    partial class StringReplaceInt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,10 +29,12 @@ namespace PhoneShop.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("int");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -81,9 +83,11 @@ namespace PhoneShop.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Country")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

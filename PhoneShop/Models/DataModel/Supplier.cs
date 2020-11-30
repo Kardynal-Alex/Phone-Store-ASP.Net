@@ -13,6 +13,6 @@ namespace PhoneShop.Models.DataModel
         public string Country { get; set; }
         public int ContactDetailId { get; set; }
         public ContactDetail ContactDetail { get; set; }
-        public IEnumerable<Product> Products { get; set; }
+        public IList<Product> Products { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using PhoneShop.Models.DataModel;
 using PhoneShop.Models.Pagination;
 using System.Collections.Generic;
+using System;
 
 namespace PhoneShop.Controllers
 {   
@@ -44,9 +45,10 @@ namespace PhoneShop.Controllers
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
             ViewBag.Brand = brand;
+            ViewBag.PromoCode = repository.GetPromoCodeByDate();
+            ViewBag.URL = HttpContext.Request.Path.ToString() + HttpContext.Request.QueryString;
             return View(await GetCurrentProducts(page, brand, minPrice, maxPrice));
         }
-        
         public async Task<IActionResult> ShowAll(int page=1, string brand = null, double? minPrice = null, double? maxPrice = null)
         {
             if (User.Identity.IsAuthenticated)
@@ -124,6 +126,48 @@ namespace PhoneShop.Controllers
             repository.UpdateSupplier(supplier, contactId);
             return RedirectToAction(nameof(SuppliersList));
         }
+        public IActionResult PromoCodeList()
+        {
+            
+            return View(repository.GetAllPromoCode());
+        }
+        public IActionResult CreatePromoCode()
+        {
+            ViewBag.CreateMode = true;
+            return View("CreatePromoCode", new PromoCodeSystem());
+        }
+        [HttpPost]
+        public IActionResult CreatePromoCode(string PromoCode, DateTime Date1, DateTime Date2, int DiscountPercentage)
+        {
+            PromoCodeSystem promoCodeSystem = new PromoCodeSystem
+            {
+                PromoCode=PromoCode,
+                Date1=Date1,
+                Date2=Date2,
+                DiscountPercentage=DiscountPercentage
+            };
+            repository.CreatePromoCode(promoCodeSystem);
+            return RedirectToAction(nameof(PromoCodeList));
+        }
+        public IActionResult EditPromoCode(int id)
+        {
+            ViewBag.CreateMode = false;
+            return View("CreatePromoCode",repository.GetPromoCodeById(id));
+        }
+        [HttpPost]
+        public IActionResult EditPromoCode(int id,string PromoCode, DateTime Date1, DateTime Date2, int DiscountPercentage)
+        {
+            PromoCodeSystem promoCodeSystem = new PromoCodeSystem
+            {
+                PromoCode = PromoCode,
+                Date1 = Date1,
+                Date2 = Date2,
+                DiscountPercentage = DiscountPercentage
+            };
+            repository.UpdatePromoCode(id,promoCodeSystem);
+            return RedirectToAction(nameof(PromoCodeList));
+        }
+
         public IActionResult Privacy()
         {
             return View();

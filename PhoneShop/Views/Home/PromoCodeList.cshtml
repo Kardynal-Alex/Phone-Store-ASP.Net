@@ -1,0 +1,30 @@
+﻿@model IQueryable<PhoneShop.Models.DataModel.PromoCodeSystem>
+
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-left">@item.PromoCode</td>
+                <td class="text-left">@item.Date1.ToShortDateString()</td>
+                <td class="text-center">@item.Date2.ToShortDateString()</td>
+                <td class="text-rigth">@item.DiscountPercentage</td>
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <a asp-action="EditPromoCode" class="btn btn-warning"
+                           asp-route-id="@item.Id">Edit
+                        </a>
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-center">
+    <a asp-action="CreatePromoCode" asp-controller="Home" class="btn btn-success">Create</a>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-warning">Back</a>
+</div>
