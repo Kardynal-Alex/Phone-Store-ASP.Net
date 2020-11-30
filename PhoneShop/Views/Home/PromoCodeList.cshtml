@@ -2,6 +2,14 @@
 
 
 <table class="table">
+    <thead>
+        <tr>
+            <th>Promocode</th>
+            <th>First Date</th>
+            <th class="text-center">Second Date</th>
+            <th class="text-left">Discount %</th>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var item in Model)
         {
@@ -11,9 +19,10 @@
                 <td class="text-center">@item.Date2.ToShortDateString()</td>
                 <td class="text-rigth">@item.DiscountPercentage</td>
                 <td>
-                    <form asp-action="Delete" method="post">
+                    <form asp-action="DeletePromoCode" method="post">
                         <a asp-action="EditPromoCode" class="btn btn-warning"
-                           asp-route-id="@item.Id">Edit
+                           asp-route-id="@item.Id">
+                            Edit
                         </a>
                         <input type="hidden" name="id" value="@item.Id" />
                         <button type="submit" class="btn btn-danger">Delete</button>

@@ -8,6 +8,7 @@ namespace PhoneShop.Models
     public class Cart
     {
         private List<CartLine> lineCollection = new List<CartLine>();
+        public double TotalPriceWithDiscount = 0f;
         public void AddItem(Product product,int quantity)
         {
             CartLine line = lineCollection.Where(x => x.Product.Id == product.Id).FirstOrDefault();
@@ -27,6 +28,7 @@ namespace PhoneShop.Models
         public void RemoveLine(Product product)
         {
             lineCollection.RemoveAll(x => x.Product.Id == product.Id);
+            TotalPriceWithDiscount = 0f;
         }
 
         public double ComputeTotalValue()

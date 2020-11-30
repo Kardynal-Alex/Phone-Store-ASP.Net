@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PhoneShop.Models;
 using PhoneShop.Models.DataModel;
-
+using System;
 namespace PhoneShop.Controllers
 {
     public class CartController : Controller
@@ -18,6 +18,21 @@ namespace PhoneShop.Controllers
         public ViewResult Index(string returnUrl)
         {
             return View(new CartIndexViewModel
+            {
+                Cart = cart,
+                ReturnUrl = returnUrl
+            });
+        }
+        public IActionResult IndexWithPromo(string returnUrl, string Promo)
+        {
+            var priceWithDiscount = repository.GetPromoCodeByDate();
+            if (priceWithDiscount != null) 
+            {
+                ViewBag.PromoCode = priceWithDiscount;
+                ViewBag.PromoCodeInput = Promo;
+                cart.TotalPriceWithDiscount = (cart.ComputeTotalValue() * (1 - Convert.ToDouble(priceWithDiscount.DiscountPercentage * 0.01)));
+            }
+            return View("Index",new CartIndexViewModel
             {
                 Cart = cart,
                 ReturnUrl = returnUrl

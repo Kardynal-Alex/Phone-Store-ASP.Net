@@ -33,7 +33,7 @@ namespace PhoneShop.Models
                 .Append("</head>")
                 .Append("<body>")
                 .Append("<h3>Your Order<h3>");
-            
+
             text.Append("<table class=\"table\">")
                 .Append("<tbody>");
             foreach (var item in cart.Lines)
@@ -50,8 +50,17 @@ namespace PhoneShop.Models
 
             text.Append("<td colspan=\"3\" class=\"text - right\">Total Price : </td>")
                 .Append("<td>")
-                .Append($"{cart.ComputeTotalValue()} $")
+                .Append($"{cart.ComputeTotalValue().ToString("f2")} $")
                 .Append("</td>");
+            text.Append("</tr>");
+            text.Append("<tr>");
+            if (cart.TotalPriceWithDiscount != 0)
+            {
+                text.Append("<td colspan=\"3\" class=\"text - right\">Total Price with discount : </td>")
+                    .Append("<td>")
+                    .Append($"{cart.TotalPriceWithDiscount.ToString("f2")} $")
+                    .Append("</td>");
+            }
 
             text.Append("</tr>")
                 .Append("</tfoot>")

@@ -45,7 +45,11 @@ namespace PhoneShop.Controllers
             ViewBag.minPrice = minPrice;
             ViewBag.maxPrice = maxPrice;
             ViewBag.Brand = brand;
-            ViewBag.PromoCode = repository.GetPromoCodeByDate();
+            var promoCode = repository.GetPromoCodeByDate();
+            if(promoCode!=null)
+            {
+                ViewBag.PromoCode = promoCode.PromoCode;
+            }           
             ViewBag.URL = HttpContext.Request.Path.ToString() + HttpContext.Request.QueryString;
             return View(await GetCurrentProducts(page, brand, minPrice, maxPrice));
         }
@@ -134,10 +138,10 @@ namespace PhoneShop.Controllers
         public IActionResult CreatePromoCode()
         {
             ViewBag.CreateMode = true;
-            return View("CreatePromoCode", new PromoCodeSystem());
+            return View("CreatePromoCode");
         }
         [HttpPost]
-        public IActionResult CreatePromoCode(string PromoCode, DateTime Date1, DateTime Date2, int DiscountPercentage)
+        public IActionResult CreatePromoCode(PromoCodeSystem promo, string PromoCode, DateTime Date1, DateTime Date2, int DiscountPercentage)
         {
             PromoCodeSystem promoCodeSystem = new PromoCodeSystem
             {
@@ -155,7 +159,7 @@ namespace PhoneShop.Controllers
             return View("CreatePromoCode",repository.GetPromoCodeById(id));
         }
         [HttpPost]
-        public IActionResult EditPromoCode(int id,string PromoCode, DateTime Date1, DateTime Date2, int DiscountPercentage)
+        public IActionResult EditPromoCode(PromoCodeSystem promo, int id, string PromoCode, DateTime Date1, DateTime Date2, int DiscountPercentage)
         {
             PromoCodeSystem promoCodeSystem = new PromoCodeSystem
             {
@@ -167,7 +171,12 @@ namespace PhoneShop.Controllers
             repository.UpdatePromoCode(id,promoCodeSystem);
             return RedirectToAction(nameof(PromoCodeList));
         }
-
+        [HttpPost]
+        public IActionResult DeletePromoCode(int id)
+        {
+            repository.DeletePromoCode(id);
+            return RedirectToAction(nameof(PromoCodeList));
+        }
         public IActionResult Privacy()
         {
             return View();

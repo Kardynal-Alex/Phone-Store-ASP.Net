@@ -1,6 +1,8 @@
 ﻿@model PhoneShop.Models.CartIndexViewModel
+@using PhoneShop.Models.DataModel
 @{
     ViewBag.Title = "PhoneStore: Shopping Cart";
+    PromoCodeSystem promoCodeSystem = ViewBag.PromoCode;
 }
 @using PhoneShop.Models
 <h2>Your Shopping Cart</h2>
@@ -42,8 +44,27 @@
                 @Model.Cart.ComputeTotalValue().ToString("f2")$
             </td>
         </tr>
+        @if (ViewBag.PromoCodeInput != null && promoCodeSystem.PromoCode != null) 
+        {
+            @if (promoCodeSystem.PromoCode == ViewBag.PromoCodeInput)
+            {
+                <tr>
+                    <td colspan="3" class="text-right">Total Price with discount:</td>
+                    <td class="text-right">
+                        @string.Format("{0:0.##}",(Model.Cart.ComputeTotalValue()*(1-Convert.ToDouble(promoCodeSystem.DiscountPercentage*0.01)))) $
+                    </td>
+                </tr>
+            }
+        }
     </tfoot>
 </table>
+
+<h3>Enter yout PromoCode</h3>
+<form asp-action="IndexWithPromo" asp-controller="Cart" method="post">
+    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+    <input type="text" name="Promo" value="@ViewBag.PromoCodeInput" />
+    <button type="submit" class="btn btn-primary">Check</button>
+</form>
 
 <div class="text-center">
     <a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>

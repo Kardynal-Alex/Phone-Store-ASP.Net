@@ -132,10 +132,16 @@ namespace PhoneShop.Models
             context.PromoCodeSystems.Update(p);
             context.SaveChanges();
         }
-        public string GetPromoCodeByDate()
+        public PromoCodeSystem GetPromoCodeByDate()
         {
-            return context.PromoCodeSystems.Where(x => DateTime.Now.Date >= x.Date1 && DateTime.Now.Date <= x.Date2).Select(x => x.PromoCode).FirstOrDefault();
-        } 
-            
+            return context.PromoCodeSystems.Where(x => DateTime.Now.Date >= x.Date1 && DateTime.Now.Date <= x.Date2).Select(x => x).FirstOrDefault();
+        }
+        public void DeletePromoCode(int id)
+        {
+            context.PromoCodeSystems.Remove(new PromoCodeSystem { Id = id });
+            context.SaveChanges();
+        }
+
+
     }
 }

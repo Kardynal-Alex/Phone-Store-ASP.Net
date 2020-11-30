@@ -3,38 +3,33 @@
     ViewData["Title"] = ViewBag.CreateMode == true ? "CreatePromoCode" : "EditPromoCode";
     Layout = "_Layout";
 }
-<form asp-action="@(ViewBag.CreateMode==true ?"CreatePromoCode":"EditPromoCode")" 
+<form asp-action="@(ViewBag.CreateMode==true ?"CreatePromoCode":"EditPromoCode")"
       asp-controller="Home" method="post">
     <div class="form-group">
         <label asp-for="PromoCode"></label>
         <input asp-for="PromoCode" class="form-control" />
+        <span asp-validation-for="PromoCode"></span>
     </div>
     <div class="form-group">
         <label asp-for="Date1"></label>
         <input type="date" asp-for="Date1" class="form-control" />
+        <span asp-validation-for="Date1"></span>
     </div>
     <div class="form-group">
         <label asp-for="Date2"></label>
         <input type="date" asp-for="Date2" class="form-control" />
+        <span asp-validation-for="Date2"></span>
     </div>
     <div class="form-group">
         <label asp-for="DiscountPercentage"></label>
         <input asp-for="DiscountPercentage" class="form-control" />
+        <span asp-validation-for="DiscountPercentage"></span>
     </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Save</button>
         <a asp-action="PromoCodeList" class="btn btn-primary">Cancel</a>
     </div>
 </form>
-
-
-
-
-
-
-
-
-
 
 @section scripts
 {
