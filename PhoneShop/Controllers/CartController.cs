@@ -15,7 +15,7 @@ namespace PhoneShop.Controllers
         {
             repository = repo;
         }
-        public IActionResult Index(string returnUrl, string Promo = null)
+        public IActionResult Index(string returnUrl = "/", string Promo = null)
         {
             var priceWithDiscount = repository.GetPromoCodeByDate();
             if (priceWithDiscount != null && Promo != null && cart.ComputeTotalValue() > 0)   
