@@ -9,24 +9,16 @@ namespace PhoneShop.Controllers
     public class CartController : Controller
     {
         private IDataRepository repository;
-        public static Cart cart=new Cart();
+        public static Cart cart = new Cart();
 
         public CartController(IDataRepository repo)
         {
             repository = repo;
         }
-        public ViewResult Index(string returnUrl)
-        {
-            return View(new CartIndexViewModel
-            {
-                Cart = cart,
-                ReturnUrl = returnUrl
-            });
-        }
-        public IActionResult IndexWithPromo(string returnUrl, string Promo)
+        public IActionResult Index(string returnUrl, string Promo = null)
         {
             var priceWithDiscount = repository.GetPromoCodeByDate();
-            if (priceWithDiscount != null) 
+            if (priceWithDiscount != null && Promo != null && cart.ComputeTotalValue() > 0)   
             {
                 ViewBag.PromoCode = priceWithDiscount;
                 ViewBag.PromoCodeInput = Promo;

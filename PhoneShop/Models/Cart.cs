@@ -27,7 +27,15 @@ namespace PhoneShop.Models
         }
         public void RemoveLine(Product product)
         {
-            lineCollection.RemoveAll(x => x.Product.Id == product.Id);
+            CartLine isProductInCart = lineCollection.Where(x => x.Product.Id == product.Id).FirstOrDefault();
+            if (isProductInCart != null && isProductInCart.Quantity > 1) 
+            {
+                isProductInCart.Quantity--;
+            }
+            else
+            {
+                lineCollection.RemoveAll(x => x.Product.Id == product.Id);
+            }
             TotalPriceWithDiscount = 0f;
         }
 

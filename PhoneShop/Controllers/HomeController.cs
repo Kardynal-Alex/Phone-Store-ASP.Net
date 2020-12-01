@@ -90,7 +90,7 @@ namespace PhoneShop.Controllers
             else
             {
                 repository.CreatProduct(product, Image);
-                return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", page = Page, minPrice = minPrice, maxPrice = maxPrice });
+                return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", Page = Page, minPrice = minPrice, maxPrice = maxPrice });
             }
         }
         public IActionResult Edit(int id, int Page, double? minPrice = null, double? maxPrice = null)
@@ -109,13 +109,13 @@ namespace PhoneShop.Controllers
         {
             TempData["message"] = string.Format("\"{0}\" was changed", product.Name);
             repository.UpdateProduct(product, Image, SupplierId);
-            return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", page = Page, minPrice = minPrice, maxPrice = maxPrice });
+            return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", Page = Page, minPrice = minPrice, maxPrice = maxPrice });
         }
         [HttpPost]
         public IActionResult Delete(int id, int Page, double? minPrice = null, double? maxPrice = null)
         {
             repository.DeleteProduct(id);
-            return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", page = Page, minPrice = minPrice, maxPrice = maxPrice });
+            return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", Page = Page, minPrice = minPrice, maxPrice = maxPrice });
         }
         public IActionResult EditSupplier(int id)
         {
@@ -132,7 +132,6 @@ namespace PhoneShop.Controllers
         }
         public IActionResult PromoCodeList()
         {
-            
             return View(repository.GetAllPromoCode());
         }
         public IActionResult CreatePromoCode()
@@ -141,17 +140,20 @@ namespace PhoneShop.Controllers
             return View("CreatePromoCode");
         }
         [HttpPost]
-        public IActionResult CreatePromoCode(PromoCodeSystem promo, string PromoCode, DateTime Date1, DateTime Date2, int DiscountPercentage)
+        public IActionResult CreatePromoCode(PromoCodeSystem promoCodeSystem)
         {
-            PromoCodeSystem promoCodeSystem = new PromoCodeSystem
+            ViewBag.CreateMode = true;
+            if (promoCodeSystem.Date1 > promoCodeSystem.Date2)
             {
-                PromoCode=PromoCode,
-                Date1=Date1,
-                Date2=Date2,
-                DiscountPercentage=DiscountPercentage
-            };
-            repository.CreatePromoCode(promoCodeSystem);
-            return RedirectToAction(nameof(PromoCodeList));
+                ModelState.AddModelError("Date1", "Date1 must be less equal than Date2");
+            }
+            else
+            if (ModelState.IsValid)
+            {
+                repository.CreatePromoCode(promoCodeSystem);
+                return RedirectToAction(nameof(PromoCodeList));
+            }
+            return View();
         }
         public IActionResult EditPromoCode(int id)
         {
@@ -159,17 +161,20 @@ namespace PhoneShop.Controllers
             return View("CreatePromoCode",repository.GetPromoCodeById(id));
         }
         [HttpPost]
-        public IActionResult EditPromoCode(PromoCodeSystem promo, int id, string PromoCode, DateTime Date1, DateTime Date2, int DiscountPercentage)
+        public IActionResult EditPromoCode(PromoCodeSystem promoCodeSystem)
         {
-            PromoCodeSystem promoCodeSystem = new PromoCodeSystem
+            ViewBag.CreateMode = false;
+            if (promoCodeSystem.Date1 > promoCodeSystem.Date2)
             {
-                PromoCode = PromoCode,
-                Date1 = Date1,
-                Date2 = Date2,
-                DiscountPercentage = DiscountPercentage
-            };
-            repository.UpdatePromoCode(id,promoCodeSystem);
-            return RedirectToAction(nameof(PromoCodeList));
+                ModelState.AddModelError("Date1", "Date1 must be less equal than Date2");
+            }
+            else
+            if (ModelState.IsValid)
+            {
+                repository.UpdatePromoCode(promoCodeSystem);
+                return RedirectToAction(nameof(PromoCodeList));
+            }
+            return View("CreatePromoCode");
         }
         [HttpPost]
         public IActionResult DeletePromoCode(int id)

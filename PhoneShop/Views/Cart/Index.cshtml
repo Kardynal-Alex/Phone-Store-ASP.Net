@@ -59,11 +59,11 @@
     </tfoot>
 </table>
 
-<h3>Enter yout PromoCode</h3>
-<form asp-action="IndexWithPromo" asp-controller="Cart" method="post">
+<h5>Enter yout PromoCode</h5>
+<form asp-action="Index" asp-controller="Cart" method="post">
     <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
-    <input type="text" name="Promo" value="@ViewBag.PromoCodeInput" />
-    <button type="submit" class="btn btn-primary">Check</button>
+    <input type="text" name="Promo" value="@ViewBag.PromoCodeInput"/>
+    <button type="submit" class="btn btn-primary pl-sm-2">Check</button>
 </form>
 
 <div class="text-center">

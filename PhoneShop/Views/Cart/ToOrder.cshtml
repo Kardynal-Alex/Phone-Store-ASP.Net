@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "PhoneStore : To Order";
 }
+
 <form asp-action="ToOrder" asp-controller="Cart" method="post">
     <div class="form-group">
         <label asp-for="Name"></label>
@@ -38,6 +39,7 @@
         <a class="btn btn-primary" href="@ViewBag.URLaddress">Back</a>
     </div>
 </form>
+
 @section scripts
 {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

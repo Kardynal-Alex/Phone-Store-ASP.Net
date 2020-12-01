@@ -122,9 +122,9 @@ namespace PhoneShop.Models
         }
         public IQueryable<PromoCodeSystem> GetAllPromoCode() => context.PromoCodeSystems;
         public PromoCodeSystem GetPromoCodeById(int id) => context.PromoCodeSystems.Find(id);
-        public void UpdatePromoCode(int id, PromoCodeSystem promoCodeSystem)
+        public void UpdatePromoCode(PromoCodeSystem promoCodeSystem)
         {
-            PromoCodeSystem p = context.PromoCodeSystems.Find(id);
+            PromoCodeSystem p = context.PromoCodeSystems.Find(promoCodeSystem.Id);
             p.PromoCode = promoCodeSystem.PromoCode;
             p.Date1 = promoCodeSystem.Date1;
             p.Date2 = promoCodeSystem.Date2;

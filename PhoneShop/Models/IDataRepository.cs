@@ -20,7 +20,7 @@ namespace PhoneShop.Models
         IQueryable<PromoCodeSystem> GetAllPromoCode();
         PromoCodeSystem GetPromoCodeById(int id);
         PromoCodeSystem GetPromoCodeByDate();
-        void UpdatePromoCode(int id, PromoCodeSystem promoCodeSystem);
+        void UpdatePromoCode(PromoCodeSystem promoCodeSystem);
         void DeletePromoCode(int id);
     }
 }
