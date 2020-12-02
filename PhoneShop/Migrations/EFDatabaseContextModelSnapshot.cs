@@ -61,14 +61,56 @@ namespace PhoneShop.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int>("ProductInfoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductInfoId")
+                        .IsUnique();
+
                     b.HasIndex("SupplierId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("PhoneShop.Models.DataModel.ProductInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("BatteryCapacity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BuiltInMemory")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CPU")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Camera")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberOfCores")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OS")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RAMSize")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ScreenResolution")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductInfos");
                 });
 
             modelBuilder.Entity("PhoneShop.Models.DataModel.PromoCodeSystem", b =>
@@ -116,18 +158,27 @@ namespace PhoneShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContactDetailId");
+                    b.HasIndex("ContactDetailId")
+                        .IsUnique();
 
                     b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("PhoneShop.Models.DataModel.Product", b =>
                 {
+                    b.HasOne("PhoneShop.Models.DataModel.ProductInfo", "ProductInfo")
+                        .WithOne("Product")
+                        .HasForeignKey("PhoneShop.Models.DataModel.Product", "ProductInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PhoneShop.Models.DataModel.Supplier", "Supplier")
                         .WithMany("Products")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("ProductInfo");
 
                     b.Navigation("Supplier");
                 });
@@ -135,12 +186,22 @@ namespace PhoneShop.Migrations
             modelBuilder.Entity("PhoneShop.Models.DataModel.Supplier", b =>
                 {
                     b.HasOne("PhoneShop.Models.DataModel.ContactDetail", "ContactDetail")
-                        .WithMany()
-                        .HasForeignKey("ContactDetailId")
+                        .WithOne("Supplier")
+                        .HasForeignKey("PhoneShop.Models.DataModel.Supplier", "ContactDetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ContactDetail");
+                });
+
+            modelBuilder.Entity("PhoneShop.Models.DataModel.ContactDetail", b =>
+                {
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("PhoneShop.Models.DataModel.ProductInfo", b =>
+                {
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("PhoneShop.Models.DataModel.Supplier", b =>

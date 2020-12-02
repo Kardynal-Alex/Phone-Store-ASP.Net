@@ -101,14 +101,16 @@ namespace PhoneShop.Controllers
             var product = repository.GetProductById(id);
             var suppliers = repository.GetSupplierById(product.SupplierId);
             var contact = repository.GetContactDetailById(suppliers.ContactDetailId);
+            var productInfo = repository.GetProductInfoById(product.ProductInfoId);
             ViewBag.SupplierId = suppliers.Id;
+            ViewBag.ProductInfoId = productInfo.Id;
             return View("EditProduct", repository.GetProductById(id));
         }
         [HttpPost]
-        public IActionResult Edit(Product product, IFormFile Image, int SupplierId, int Page, double? minPrice = null, double? maxPrice = null)
+        public IActionResult Edit(Product product, IFormFile Image, int SupplierId,int ProductInfoId, int Page, double? minPrice = null, double? maxPrice = null)
         {
             TempData["message"] = string.Format("\"{0}\" was changed", product.Name);
-            repository.UpdateProduct(product, Image, SupplierId);
+            repository.UpdateProduct(product, Image, SupplierId,ProductInfoId);
             return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", Page = Page, minPrice = minPrice, maxPrice = maxPrice });
         }
         [HttpPost]

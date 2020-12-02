@@ -17,5 +17,7 @@ namespace PhoneShop.Models.DataModel
 
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
+        public int ProductInfoId { get; set; }
+        public ProductInfo ProductInfo { get; set; }
     }
 }

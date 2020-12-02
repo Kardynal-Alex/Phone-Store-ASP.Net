@@ -35,6 +35,18 @@ namespace PhoneShop.Models
                 }
                 product.Image = newProduct.Image;
                 product.SupplierId = existingSupplier.Id;
+
+                ProductInfo productInfo = new ProductInfo();
+                productInfo.ScreenResolution = newProduct.ProductInfo.ScreenResolution;
+                productInfo.Camera = newProduct.ProductInfo.Camera;
+                productInfo.CPU = newProduct.ProductInfo.CPU;
+                productInfo.NumberOfCores = newProduct.ProductInfo.NumberOfCores;
+                productInfo.RAMSize = newProduct.ProductInfo.RAMSize;
+                productInfo.BuiltInMemory = newProduct.ProductInfo.BuiltInMemory;
+                productInfo.OS = newProduct.ProductInfo.OS;
+                productInfo.BatteryCapacity = newProduct.ProductInfo.BatteryCapacity;
+                product.ProductInfo = productInfo;
+
                 context.Products.Add(product);
             }
             else
@@ -51,7 +63,7 @@ namespace PhoneShop.Models
             }
             context.SaveChanges();
         }
-        public void UpdateProduct(Product updateProduct, IFormFile Image, int SupplierId)
+        public void UpdateProduct(Product updateProduct, IFormFile Image, int SupplierId, int ProductInfoId)
         {
             Product p =context.Products.Find(updateProduct.Id);
             p.Name = updateProduct.Name;
@@ -65,21 +77,37 @@ namespace PhoneShop.Models
                     p.Image = ms.ToArray();
                 }
             }
+
             Supplier s = context.Suppliers.Find(SupplierId);
             s.Name = updateProduct.Supplier.Name;
             s.Country = updateProduct.Supplier.Country;
+
             ContactDetail c = context.ContactDetails.Find(s.ContactDetailId);
             c.Name = updateProduct.Supplier.ContactDetail.Name;
             c.Phone = updateProduct.Supplier.ContactDetail.Phone;
-            
+
+            ProductInfo productInfo = context.ProductInfos.Find(ProductInfoId);
+            productInfo.ScreenResolution = updateProduct.ProductInfo.ScreenResolution;
+            productInfo.Camera = updateProduct.ProductInfo.Camera;
+            productInfo.CPU = updateProduct.ProductInfo.CPU;
+            productInfo.NumberOfCores = updateProduct.ProductInfo.NumberOfCores;
+            productInfo.RAMSize = updateProduct.ProductInfo.RAMSize;
+            productInfo.BuiltInMemory = updateProduct.ProductInfo.BuiltInMemory;
+            productInfo.OS = updateProduct.ProductInfo.OS;
+            productInfo.BatteryCapacity = updateProduct.ProductInfo.BatteryCapacity;
+
             context.Products.Update(p);
             context.Suppliers.Update(s);
             context.ContactDetails.Update(c);
+            context.ProductInfos.Update(productInfo);
             context.SaveChanges();
         }
         public void DeleteProduct(int id)
         {
-            context.Products.Remove(new Product { Id = id });
+            var product = context.Products.Find(id);
+            var productInfo = context.ProductInfos.Find(product.ProductInfoId);
+            context.Products.Remove(product);
+            context.ProductInfos.Remove(productInfo);
             context.SaveChanges();
         }
         public IQueryable<Product> GetFilteredProduct(string brand = null, double? minPrice = null, double? maxPrice = null)
@@ -141,7 +169,8 @@ namespace PhoneShop.Models
             context.PromoCodeSystems.Remove(new PromoCodeSystem { Id = id });
             context.SaveChanges();
         }
-
+        public ProductInfo GetProductInfoById(int id) => context.ProductInfos.Find(id);
+        public IQueryable<ProductInfo> GetAllProductInfos() => context.ProductInfos;
 
     }
 }

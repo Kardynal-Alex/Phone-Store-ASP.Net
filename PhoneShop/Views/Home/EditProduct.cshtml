@@ -5,6 +5,7 @@
 
 <form asp-action="Edit" asp-controller="Home" method="post" enctype="multipart/form-data"
       asp-route-SupplierId="@ViewBag.SupplierId"
+      asp-route-ProductInfoId="@ViewBag.ProductInfoId"
       asp-route-minPrice="@ViewBag.minPrice"
       asp-route-maxPrice="@ViewBag.maxPrice"
       asp-route-Page="@ViewBag.Page">
@@ -33,13 +34,47 @@
                 <label asp-for="Image">Image</label>
                 <input name="Image" type="file" class="form-control" />
             </div>
-            @if (Model.Image != null)
-            {
-                <div class="pull-left" style="margin-right: 10px">
-                    <img class="img-thumbnail" width="120" height="100"
-                         src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
-                </div>
-            }
+            <h2>Product Info</h2>
+            <div class="form-group">
+                <label asp-for="ProductInfo.ScreenResolution"></label>
+                <input asp-for="ProductInfo.ScreenResolution" class="form-control" />
+                <span asp-validation-for="ProductInfo.ScreenResolution"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.Camera"></label>
+                <input asp-for="ProductInfo.Camera" class="form-control" />
+                <span asp-validation-for="ProductInfo.Camera"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.CPU"></label>
+                <input asp-for="ProductInfo.CPU" class="form-control" />
+                <span asp-validation-for="ProductInfo.CPU"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.NumberOfCores"></label>
+                <input asp-for="ProductInfo.NumberOfCores" class="form-control" />
+                <span asp-validation-for="ProductInfo.NumberOfCores"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.RAMSize"></label>
+                <input asp-for="ProductInfo.RAMSize" class="form-control" />
+                <span asp-validation-for="ProductInfo.RAMSize"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.BuiltInMemory"></label>
+                <input asp-for="ProductInfo.BuiltInMemory" class="form-control" />
+                <span asp-validation-for="ProductInfo.BuiltInMemory"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.OS"></label>
+                <input asp-for="ProductInfo.OS" class="form-control" />
+                <span asp-validation-for="ProductInfo.OS"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.BatteryCapacity"></label>
+                <input asp-for="ProductInfo.BatteryCapacity" class="form-control" />
+                <span asp-validation-for="ProductInfo.BatteryCapacity"></span>
+            </div>
         </div>
         <div class="col p-2">
             <h2>Supplier</h2>
@@ -64,6 +99,13 @@
                 <input asp-for="Supplier.ContactDetail.Phone" class="form-control" />
                 <span asp-validation-for="Supplier.ContactDetail.Phone"></span>
             </div>
+            @if (Model.Image != null)
+            {
+                <div class="pull-left" style="margin-right: 10px">
+                    <img class="img-thumbnail" width="300" height="350"
+                         src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+                </div>
+            }
         </div>
     </div>
         <div class="text-center">

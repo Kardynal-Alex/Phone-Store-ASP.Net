@@ -12,7 +12,7 @@ namespace PhoneShop.Models
         IQueryable<Supplier> GetAllSuppliers();
         IQueryable<ContactDetail> GetAllContactDetails();
         void CreatProduct(Product newProduct, IFormFile Image);
-        void UpdateProduct(Product updateProduct, IFormFile Image, int SupplierId);
+        void UpdateProduct(Product updateProduct, IFormFile Image, int SupplierId, int ProductInfoId);
         void DeleteProduct(int id);
         IQueryable<Product> GetFilteredProduct(string brand = null, double? minPrice=null, double? maxPrice=null);
         void UpdateSupplier(Supplier supplier, int contactDetailId);
@@ -22,5 +22,7 @@ namespace PhoneShop.Models
         PromoCodeSystem GetPromoCodeByDate();
         void UpdatePromoCode(PromoCodeSystem promoCodeSystem);
         void DeletePromoCode(int id);
+        ProductInfo GetProductInfoById(int id);
+        IQueryable<ProductInfo> GetAllProductInfos();
     }
 }

@@ -11,5 +11,7 @@ namespace PhoneShop.Models.DataModel
         [MaxLength(10)]
         [Required(ErrorMessage = "Enter Phone Supplier")]
         public string Phone { get; set; }
+
+        public Supplier Supplier { get; set; }
     }
 }

@@ -31,6 +31,47 @@
                 <label asp-for="Image">Image</label>
                 <input name="Image" type="file" class="form-control" />
             </div>
+            <h2>Product Info</h2>
+            <div class="form-group">
+                <label asp-for="ProductInfo.ScreenResolution"></label>
+                <input asp-for="ProductInfo.ScreenResolution" class="form-control" />
+                <span asp-validation-for="ProductInfo.ScreenResolution"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.Camera"></label>
+                <input asp-for="ProductInfo.Camera" class="form-control" />
+                <span asp-validation-for="ProductInfo.Camera"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.CPU"></label>
+                <input asp-for="ProductInfo.CPU" class="form-control" />
+                <span asp-validation-for="ProductInfo.CPU"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.NumberOfCores"></label>
+                <input asp-for="ProductInfo.NumberOfCores" class="form-control" />
+                <span asp-validation-for="ProductInfo.NumberOfCores"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.RAMSize"></label>
+                <input asp-for="ProductInfo.RAMSize" class="form-control" />
+                <span asp-validation-for="ProductInfo.RAMSize"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.BuiltInMemory"></label>
+                <input asp-for="ProductInfo.BuiltInMemory" class="form-control" />
+                <span asp-validation-for="ProductInfo.BuiltInMemory"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.OS"></label>
+                <input asp-for="ProductInfo.OS" class="form-control" />
+                <span asp-validation-for="ProductInfo.OS"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInfo.BatteryCapacity"></label>
+                <input asp-for="ProductInfo.BatteryCapacity" class="form-control" />
+                <span asp-validation-for="ProductInfo.BatteryCapacity"></span>
+            </div>
         </div>
         <div class="col p-2">
             <h2>Supplier</h2>
