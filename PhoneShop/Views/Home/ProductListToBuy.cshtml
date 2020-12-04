@@ -11,7 +11,10 @@
                 </div>
             }
             <div class="col">
-                <h3>@p.Name</h3>
+                <a asp-action="DetailInfoAboutPhone" asp-controller="Home"
+                   asp-route-productId="@p.Id">
+                    <h3>@p.Name</h3>
+                </a>
                 <h5>@p.Brand</h5>
                 <h6>@p.Price.ToString("F2") $</h6>
                 @if(ViewBag.PromoCode!=null)

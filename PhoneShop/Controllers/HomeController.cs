@@ -184,6 +184,18 @@ namespace PhoneShop.Controllers
             repository.DeletePromoCode(id);
             return RedirectToAction(nameof(PromoCodeList));
         }
+        public IActionResult DetailInfoAboutPhone(int productId)
+        {
+            var product = repository.GetProductById(productId);
+            var productInfo = repository.GetProductInfoById(product.ProductInfoId);
+            var promoCode = repository.GetPromoCodeByDate();
+            if(promoCode!=null)
+            {
+                ViewBag.PromoCode = promoCode.DiscountPercentage;
+                ViewBag.PriceWithPromo = (product.Price * (1 - promoCode.DiscountPercentage * 0.01));
+            }
+            return View(product);
+        }
         public IActionResult Privacy()
         {
             return View();

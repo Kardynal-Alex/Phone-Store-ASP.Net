@@ -36,7 +36,6 @@ namespace PhoneShop.Models
             {
                 lineCollection.RemoveAll(x => x.Product.Id == product.Id);
             }
-            TotalPriceWithDiscount = 0f;
         }
 
         public double ComputeTotalValue()
@@ -47,6 +46,7 @@ namespace PhoneShop.Models
         public void Clear()
         {
             lineCollection.Clear();
+            TotalPriceWithDiscount = 0f;
         }
 
         public IEnumerable<CartLine> Lines

@@ -18,11 +18,12 @@ namespace PhoneShop.Controllers
         public IActionResult Index(string returnUrl = "/", string Promo = null)
         {
             var priceWithDiscount = repository.GetPromoCodeByDate();
-            if (priceWithDiscount != null && Promo != null && cart.ComputeTotalValue() > 0)   
+            double ComputeTotalValue = cart.ComputeTotalValue();
+            if (priceWithDiscount != null && Promo != null && ComputeTotalValue > 0)    
             {
                 ViewBag.PromoCode = priceWithDiscount;
                 ViewBag.PromoCodeInput = Promo;
-                cart.TotalPriceWithDiscount = (cart.ComputeTotalValue() * (1 - Convert.ToDouble(priceWithDiscount.DiscountPercentage * 0.01)));
+                cart.TotalPriceWithDiscount = (ComputeTotalValue * (1 - Convert.ToDouble(priceWithDiscount.DiscountPercentage * 0.01)));
             }
             return View("Index",new CartIndexViewModel
             {
