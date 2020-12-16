@@ -60,7 +60,7 @@ namespace PhoneShop.Controllers
                 ViewBag.minPrice = minPrice;
                 ViewBag.maxPrice = maxPrice;
                 ViewBag.Page = page;
-                return View("ShowAll",await GetCurrentProducts(page, brand, minPrice, maxPrice));
+                return View("ShowAll", await GetCurrentProducts(page, brand, minPrice, maxPrice));
             }
             return Content("не аутентифицирован");
         }
@@ -81,7 +81,7 @@ namespace PhoneShop.Controllers
             return View("CreateProduct", new Product());
         }
         [HttpPost]
-        public IActionResult Create(Product product, IFormFile Image, int Page, double? minPrice = null, double? maxPrice = null)
+        public async Task<IActionResult> Create(Product product, IFormFile Image, int Page, double? minPrice = null, double? maxPrice = null)
         {
             if (!ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace PhoneShop.Controllers
             }
             else
             {
-                repository.CreatProduct(product, Image);
+                await repository.CreatProduct(product, Image);
                 return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", Page = Page, minPrice = minPrice, maxPrice = maxPrice });
             }
         }
@@ -107,16 +107,16 @@ namespace PhoneShop.Controllers
             return View("EditProduct", repository.GetProductById(id));
         }
         [HttpPost]
-        public IActionResult Edit(Product product, IFormFile Image, int SupplierId,int ProductInfoId, int Page, double? minPrice = null, double? maxPrice = null)
+        public async Task<IActionResult> Edit(Product product, IFormFile Image, int SupplierId,int ProductInfoId, int Page, double? minPrice = null, double? maxPrice = null)
         {
             TempData["message"] = string.Format("\"{0}\" was changed", product.Name);
-            repository.UpdateProduct(product, Image, SupplierId,ProductInfoId);
+            await repository.UpdateProduct(product, Image, SupplierId,ProductInfoId);
             return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", Page = Page, minPrice = minPrice, maxPrice = maxPrice });
         }
         [HttpPost]
-        public IActionResult Delete(int id, int Page, double? minPrice = null, double? maxPrice = null)
+        public async Task<IActionResult> Delete(int id, int Page, double? minPrice = null, double? maxPrice = null)
         {
-            repository.DeleteProduct(id);
+            await repository.DeleteProduct(id);
             return RedirectToRoute(new { Controller = "Home", Action = "ShowAll", Page = Page, minPrice = minPrice, maxPrice = maxPrice });
         }
         public IActionResult EditSupplier(int id)
@@ -127,9 +127,9 @@ namespace PhoneShop.Controllers
             return View(supplier);
         }
         [HttpPost]
-        public IActionResult EditSupplier(Supplier supplier,int contactId)
+        public async Task<IActionResult> EditSupplier(Supplier supplier,int contactId)
         {
-            repository.UpdateSupplier(supplier, contactId);
+            await repository.UpdateSupplier(supplier, contactId);
             return RedirectToAction(nameof(SuppliersList));
         }
         public IActionResult PromoCodeList()
@@ -142,7 +142,7 @@ namespace PhoneShop.Controllers
             return View("CreatePromoCode");
         }
         [HttpPost]
-        public IActionResult CreatePromoCode(PromoCodeSystem promoCodeSystem)
+        public async Task<IActionResult> CreatePromoCode(PromoCodeSystem promoCodeSystem)
         {
             ViewBag.CreateMode = true;
             if (promoCodeSystem.Date1 > promoCodeSystem.Date2)
@@ -152,7 +152,7 @@ namespace PhoneShop.Controllers
             else
             if (ModelState.IsValid)
             {
-                repository.CreatePromoCode(promoCodeSystem);
+                await repository.CreatePromoCode(promoCodeSystem);
                 return RedirectToAction(nameof(PromoCodeList));
             }
             return View();
@@ -163,7 +163,7 @@ namespace PhoneShop.Controllers
             return View("CreatePromoCode",repository.GetPromoCodeById(id));
         }
         [HttpPost]
-        public IActionResult EditPromoCode(PromoCodeSystem promoCodeSystem)
+        public async Task<IActionResult> EditPromoCode(PromoCodeSystem promoCodeSystem)
         {
             ViewBag.CreateMode = false;
             if (promoCodeSystem.Date1 > promoCodeSystem.Date2)
@@ -173,15 +173,15 @@ namespace PhoneShop.Controllers
             else
             if (ModelState.IsValid)
             {
-                repository.UpdatePromoCode(promoCodeSystem);
+                await repository.UpdatePromoCode(promoCodeSystem);
                 return RedirectToAction(nameof(PromoCodeList));
             }
             return View("CreatePromoCode");
         }
         [HttpPost]
-        public IActionResult DeletePromoCode(int id)
+        public async Task<IActionResult> DeletePromoCode(int id)
         {
-            repository.DeletePromoCode(id);
+            await repository.DeletePromoCode(id);
             return RedirectToAction(nameof(PromoCodeList));
         }
         public IActionResult DetailInfoAboutPhone(int productId)

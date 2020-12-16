@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using PhoneShop.Models.DataModel;
 namespace PhoneShop.Models
@@ -11,17 +12,17 @@ namespace PhoneShop.Models
         IQueryable<Product> GetAllProducts();
         IQueryable<Supplier> GetAllSuppliers();
         IQueryable<ContactDetail> GetAllContactDetails();
-        void CreatProduct(Product newProduct, IFormFile Image);
-        void UpdateProduct(Product updateProduct, IFormFile Image, int SupplierId, int ProductInfoId);
-        void DeleteProduct(int id);
+        Task CreatProduct(Product newProduct, IFormFile Image);
+        Task UpdateProduct(Product updateProduct, IFormFile Image, int SupplierId, int ProductInfoId);
+        Task DeleteProduct(int id);
         IQueryable<Product> GetFilteredProduct(string brand = null, double? minPrice=null, double? maxPrice=null);
-        void UpdateSupplier(Supplier supplier, int contactDetailId);
-        void CreatePromoCode(PromoCodeSystem promoCodeSystem);
+        Task UpdateSupplier(Supplier supplier, int contactDetailId);
         IQueryable<PromoCodeSystem> GetAllPromoCode();
         PromoCodeSystem GetPromoCodeById(int id);
         PromoCodeSystem GetPromoCodeByDate();
-        void UpdatePromoCode(PromoCodeSystem promoCodeSystem);
-        void DeletePromoCode(int id);
+        Task CreatePromoCode(PromoCodeSystem promoCodeSystem);
+        Task UpdatePromoCode(PromoCodeSystem promoCodeSystem);
+        Task DeletePromoCode(int id);
         ProductInfo GetProductInfoById(int id);
         IQueryable<ProductInfo> GetAllProductInfos();
     }

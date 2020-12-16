@@ -16,7 +16,7 @@ namespace PhoneShop.Models
 
         public Product GetProductById(int id) => context.Products.Find(id);
         public IQueryable<Product> GetAllProducts() => context.Products;
-        public void CreatProduct(Product newProduct, IFormFile Image)
+        public async Task CreatProduct(Product newProduct, IFormFile Image)
         {
             var existingSupplier = context.Suppliers.FirstOrDefault(x => x.Name == newProduct.Supplier.Name && x.ContactDetail.Name == newProduct.Supplier.ContactDetail.Name);
             if (existingSupplier != null)
@@ -61,9 +61,9 @@ namespace PhoneShop.Models
                 }
                 context.Products.Add(newProduct);
             }
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
-        public void UpdateProduct(Product updateProduct, IFormFile Image, int SupplierId, int ProductInfoId)
+        public async Task UpdateProduct(Product updateProduct, IFormFile Image, int SupplierId, int ProductInfoId)
         {
             Product p =context.Products.Find(updateProduct.Id);
             p.Name = updateProduct.Name;
@@ -100,15 +100,15 @@ namespace PhoneShop.Models
             context.Suppliers.Update(s);
             context.ContactDetails.Update(c);
             context.ProductInfos.Update(productInfo);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
-        public void DeleteProduct(int id)
+        public async Task DeleteProduct(int id)
         {
             var product = context.Products.Find(id);
             var productInfo = context.ProductInfos.Find(product.ProductInfoId);
             context.Products.Remove(product);
             context.ProductInfos.Remove(productInfo);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
         public IQueryable<Product> GetFilteredProduct(string brand = null, double? minPrice = null, double? maxPrice = null)
         {
@@ -131,7 +131,7 @@ namespace PhoneShop.Models
         public IQueryable<ContactDetail> GetAllContactDetails() => context.ContactDetails;
         public Supplier GetSupplierById(int id) => context.Suppliers.Find(id);
         public ContactDetail GetContactDetailById(int id) => context.ContactDetails.Find(id);
-        public void UpdateSupplier(Supplier supplier, int contactDetailId)
+        public async Task UpdateSupplier(Supplier supplier, int contactDetailId)
         {
             Supplier s = context.Suppliers.Find(supplier.Id);
             s.Name = supplier.Name;
@@ -141,16 +141,16 @@ namespace PhoneShop.Models
             c.Phone = supplier.ContactDetail.Phone;
             context.Suppliers.Update(s);
             context.ContactDetails.Update(c);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
-        public void CreatePromoCode(PromoCodeSystem promoCodeSystem)
+        public async Task CreatePromoCode(PromoCodeSystem promoCodeSystem)
         {
             context.PromoCodeSystems.Add(promoCodeSystem);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
         public IQueryable<PromoCodeSystem> GetAllPromoCode() => context.PromoCodeSystems;
         public PromoCodeSystem GetPromoCodeById(int id) => context.PromoCodeSystems.Find(id);
-        public void UpdatePromoCode(PromoCodeSystem promoCodeSystem)
+        public async Task UpdatePromoCode(PromoCodeSystem promoCodeSystem)
         {
             PromoCodeSystem p = context.PromoCodeSystems.Find(promoCodeSystem.Id);
             p.PromoCode = promoCodeSystem.PromoCode;
@@ -158,16 +158,16 @@ namespace PhoneShop.Models
             p.Date2 = promoCodeSystem.Date2;
             p.DiscountPercentage = promoCodeSystem.DiscountPercentage;
             context.PromoCodeSystems.Update(p);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
         public PromoCodeSystem GetPromoCodeByDate()
         {
             return context.PromoCodeSystems.Where(x => DateTime.Now.Date >= x.Date1 && DateTime.Now.Date <= x.Date2).Select(x => x).FirstOrDefault();
         }
-        public void DeletePromoCode(int id)
+        public async Task DeletePromoCode(int id)
         {
             context.PromoCodeSystems.Remove(new PromoCodeSystem { Id = id });
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
         public ProductInfo GetProductInfoById(int id) => context.ProductInfos.Find(id);
         public IQueryable<ProductInfo> GetAllProductInfos() => context.ProductInfos;
