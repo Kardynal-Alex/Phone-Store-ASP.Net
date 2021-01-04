@@ -21,27 +21,30 @@
                 </button>
                 @if (User.Identity.IsAuthenticated == true)
                 {
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ShowAll">For Administration</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PromoCodeList">PromoCode</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SuppliersList">Suppliers</a>
-                            </li>
-                        </ul>
-                    </div>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ShowAll">For Administration</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PromoCodeList">PromoCode</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SuppliersList">Suppliers</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
                 }
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
@@ -50,13 +53,16 @@
                         </li>
                     </ul>
                 </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                    </ul>
-                </div>
+                @if (User.Identity.IsAuthenticated == false)
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
                 @if (User.Identity.IsAuthenticated == true)
                 {
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
@@ -70,7 +76,7 @@
             </div>
         </nav>
     </header>
-    
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

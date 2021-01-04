@@ -14,6 +14,7 @@ using PhoneShop.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using PhoneShop.Models.DataModel;
+using PhoneShop.Models.AccountModel;
 namespace PhoneShop
 {
     public class Startup
@@ -25,13 +26,12 @@ namespace PhoneShop
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           // services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
-            services.AddControllersWithViews();
             string conString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<EFDatabaseContext>(option => option.UseSqlServer(conString));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(conString));
+
             services.AddTransient<IDataRepository, EFDataRepository>();
             services.AddSession(options =>
             {
@@ -42,17 +42,17 @@ namespace PhoneShop
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    options.LoginPath = new PathString("/Account/Login");
+                    options.AccessDeniedPath = new PathString("/Account/Login");
                 });
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
                 options.HttpsPort = 44344;
             });
-
+            services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
