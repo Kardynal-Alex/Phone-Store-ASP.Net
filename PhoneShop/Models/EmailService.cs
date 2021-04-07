@@ -9,7 +9,7 @@ namespace PhoneShop.Models
     {
         public async Task SendEmailAsync(ShippingDetails shippingDetails, Cart cart)
         {
-            MailMessage mm = new MailMessage("alexandrkardinal@gmail.com", shippingDetails.Email);
+            MailMessage mm = new MailMessage("irakardinal@gmail.com", shippingDetails.Email);
             mm.Subject = "Phone Store";
             mm.Body = await Task.Run(() => BodyHtmlText(cart));
             mm.IsBodyHtml = true;
@@ -19,7 +19,7 @@ namespace PhoneShop.Models
             smtp.Port = 587;
             smtp.EnableSsl = true;
 
-            NetworkCredential nc = new NetworkCredential("alexandrkardinal@gmail.com", "alex60327");
+            NetworkCredential nc = new NetworkCredential("irakardinal@gmail.com", "sasha60327");
             smtp.UseDefaultCredentials = true;
             smtp.Credentials = nc;
             smtp.Send(mm);
